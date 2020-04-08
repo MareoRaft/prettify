@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.verykiwi.prettify.v1.0.0</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>A2F33257-4B38-4F1C-AF62-06DA6AABCE96</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>DA4BB1BD-EA85-4F68-B16F-EBA4A12E9862</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>DA4BB1BD-EA85-4F68-B16F-EBA4A12E9862</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D8C96808-3941-4CB6-995B-F15F25424E2F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Matthew Lancellotti</string>
+	<key>description</key>
+	<string>Take a JSON string from the clipboard and pretty print it</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Prettify JSON</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>63</integer>
+				<key>script</key>
+				<string>import subprocess
+import json
+
+def run(cmd_list):
+	assert isinstance(cmd_list, list)
+	# use 'check_output' instead of 'run' if using python2
+	# use 'run' with 'check=True' if using python3
+	output = subprocess.check_output(cmd_list)
+	return output
+
+def ugly_string_to_pretty_string(ugly_string):
+	obj = json.loads(ugly_string)
+	pretty_string = json.dumps(obj, indent=4)
+	return pretty_string
+
+def get_pretty_string():
+	ugly_string = run(['pbpaste'])
+	pretty_string = ugly_string_to_pretty_string(ugly_string)
+	return pretty_string
+
+def main():
+	try:
+		return get_pretty_string()
+	except Exception as e:
+		return str(e)
+
+# MAIN
+print main()</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>DA4BB1BD-EA85-4F68-B16F-EBA4A12E9862</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>D8C96808-3941-4CB6-995B-F15F25424E2F</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>prettify</string>
+				<key>subtext</key>
+				<string>Take a JSON string from the clipboard and pretty print it</string>
+				<key>text</key>
+				<string>Prettify</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>A2F33257-4B38-4F1C-AF62-06DA6AABCE96</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>uidata</key>
+	<dict>
+		<key>A2F33257-4B38-4F1C-AF62-06DA6AABCE96</key>
+		<dict>
+			<key>xpos</key>
+			<integer>110</integer>
+			<key>ypos</key>
+			<integer>170</integer>
+		</dict>
+		<key>D8C96808-3941-4CB6-995B-F15F25424E2F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>570</integer>
+			<key>ypos</key>
+			<integer>170</integer>
+		</dict>
+		<key>DA4BB1BD-EA85-4F68-B16F-EBA4A12E9862</key>
+		<dict>
+			<key>xpos</key>
+			<integer>340</integer>
+			<key>ypos</key>
+			<integer>170</integer>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://matthewlancellotti.com/</string>
+</dict>
+</plist>
